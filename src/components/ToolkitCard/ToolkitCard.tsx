@@ -8,7 +8,7 @@ interface ToolkitCardProps {
   index: number;
 }
 
-function ToolkitCard({ group, icon, index }: ToolkitCardProps) {
+function ToolkitCard({ group, icon }: ToolkitCardProps) {
   return (
     <article className="toolkit-card">
       <div className="toolkit-card-top">
