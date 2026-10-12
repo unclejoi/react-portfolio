@@ -1,0 +1,30 @@
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  font-weight: 600;
+  color: #636b5c;
+  margin-bottom: 40px;
+}
+
+.section-number {
+  letter-spacing: 0;
+  font-size: 10px;
+  color: var(--blue);
+  width: 27px;
+  height: 27px;
+  border: 1px solid #c9cfc1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width:760px) {
+
+  .section-kicker {
+    margin-bottom: 28px;
+    font-size: 8px;
+  }
+}

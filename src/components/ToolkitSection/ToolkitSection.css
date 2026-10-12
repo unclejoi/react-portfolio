@@ -1,0 +1,35 @@
+.toolkit-section .section-heading-row {
+  margin-bottom: 43px;
+}
+
+.toolkit-intro {
+  padding-right: 15px;
+  margin-bottom: 7px;
+}
+
+.toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 17px;
+}
+
+@media (max-width:1100px) {
+  .toolkit-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width:760px) {
+  .toolkit-section .section-heading-row {
+    gap: 6px;
+    margin-bottom: 30px;
+  }
+
+  .toolkit-intro br {
+    display: none;
+  }
+
+  .toolkit-grid {
+    gap: 12px;
+  }
+}
