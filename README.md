@@ -95,7 +95,18 @@ npm start
 
 Stop `npm run dev` before running `npm start`, since both use the API port. With `npm start`, open **http://127.0.0.1:3001** (or your configured `HOST`/`PORT`): Node serves the built website and API together. Rebuild after source changes before restarting production. Restart the Node service after changing environment settings.
 
-The build checks frontend and backend types, writes frontend assets to `dist/`, and compiles Node TypeScript to `dist-server/`. Deploy `dist/`, `dist-server/`, package files, and production dependencies. Supply environment settings through your host's secret manager or `.env`, and set `HOST=0.0.0.0` on hosts that require it. Chat startup does not read a local PDF or run an ingestion job; the downloadable resume is included in the built frontend assets.
+The build checks frontend and backend types, writes frontend assets to `dist/`, and compiles Node TypeScript to `dist-server/`. Deploy `dist/`, `dist-server/`, package files, and production dependencies. Supply environment settings through your host's secret manager or `.env`. Production defaults to listening on `0.0.0.0`; development defaults to `127.0.0.1`. An explicit `HOST` overrides that default. The server uses the supplied `PORT`, or 3001 locally. Chat startup does not read a local PDF or run an ingestion job; the downloadable resume is included in the built frontend assets.
+
+For a Render **Web Service**, use:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm ci --include=dev && npm run build` |
+| Start command | `npm start` |
+| Health check path | `/api/health` |
+| Environment: `HOST` | `0.0.0.0` |
+
+Add your server-only Gemini/Pinecone keys and existing-index settings in Render's environment settings. Let Render supply `PORT` (normally 10000); there is no need to copy the local port setting. If you previously copied `HOST=127.0.0.1` into Render, replace it with `0.0.0.0`, save, and redeploy. Render requires [binding the web service to `0.0.0.0`](https://render.com/docs/web-services#port-binding). Use `npm start` so Express serves the built website and API together.
 
 For a single instance behind a trusted reverse proxy, set `TRUST_PROXY_HOPS` to the exact known hop count. The API limits each client IP to 20 requests per 10 minutes, bounds JSON input, allows four concurrent model calls, and applies a 35-second request timeout. Provider calls have 15-second timeouts. The rate-limit store is in memory; multiple instances need a shared rate-limit store or gateway limits. All browser API calls are same-origin; a static-only host must proxy `/api` to the Node service. `npm run preview` previews static assets only and does not start/proxy the backend.
 

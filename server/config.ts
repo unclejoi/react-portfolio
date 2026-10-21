@@ -18,15 +18,20 @@ const configuration = z.object({
   EMBEDDING_DIMENSIONS: z.coerce.number().pipe(z.union([z.literal(768), z.literal(1536), z.literal(3072)])).default(3072),
   RAG_MIN_SCORE: z.coerce.number().min(0).max(1).default(0.5),
   PORT: z.coerce.number().int().min(1).max(65535).default(3001),
-  HOST: z.string().trim().min(1).default('127.0.0.1'),
+  HOST: z.string().trim().min(1),
   // Set an exact hop count only when a trusted reverse proxy fronts Node.
   TRUST_PROXY_HOPS: z.coerce.number().int().min(0).max(5).default(0),
 });
 
 export type Config = z.infer<typeof configuration>;
 
-export function loadConfig(): Config {
-  const result = configuration.safeParse(process.env);
+export function loadConfig(options: { production?: boolean } = {}): Config {
+  const production = options.production ?? (process.env.NODE_ENV === 'production');
+  const result = configuration.safeParse({
+    ...process.env,
+    // Hosted services need a public listener; local development stays on loopback.
+    HOST: process.env.HOST ?? (production ? '0.0.0.0' : '127.0.0.1'),
+  });
   if (!result.success) {
     // Report field names, never credential values.
     const fields = [...new Set(result.error.issues.map((issue) => issue.path.join('.')))];

@@ -2,10 +2,10 @@ import { createApp } from './app.js';
 import { isConfigured, loadConfig } from './config.js';
 import { createResumeAssistant } from './rag.js';
 
-const config = loadConfig();
+const production = process.argv.includes('--production') || process.env.NODE_ENV === 'production';
+const config = loadConfig({ production });
 const configured = isConfigured(config);
 const answer = configured ? createResumeAssistant(config) : undefined;
-const production = process.argv.includes('--production') || process.env.NODE_ENV === 'production';
 const app = createApp({ answer, trustProxyHops: config.TRUST_PROXY_HOPS, production });
 const server = app.listen(config.PORT, config.HOST);
 server.on('listening', () => {

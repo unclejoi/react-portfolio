@@ -18,6 +18,40 @@ function withEnvironment<T>(values: Record<string, string | undefined>, run: () 
   }
 }
 
+test('development defaults bind to loopback on port 3001', () => {
+  withEnvironment({ HOST: undefined, PORT: undefined, NODE_ENV: undefined }, () => {
+    const config = loadConfig();
+    assert.equal(config.HOST, '127.0.0.1');
+    assert.equal(config.PORT, 3001);
+  });
+});
+
+test('production startup binds to all interfaces and uses the platform port', () => {
+  withEnvironment({ HOST: undefined, PORT: '10000', NODE_ENV: undefined }, () => {
+    const config = loadConfig({ production: true });
+    assert.equal(config.HOST, '0.0.0.0');
+    assert.equal(config.PORT, 10000);
+  });
+});
+
+test('NODE_ENV production also defaults to binding all interfaces', () => {
+  withEnvironment({ HOST: undefined, NODE_ENV: 'production' }, () => {
+    assert.equal(loadConfig().HOST, '0.0.0.0');
+    assert.equal(loadConfig({ production: false }).HOST, '127.0.0.1');
+  });
+});
+
+test('an explicitly configured host and custom port are preserved in production', () => {
+  withEnvironment({ HOST: ' 127.0.0.1 ', PORT: '4321', NODE_ENV: 'production' }, () => {
+    const config = loadConfig({ production: true });
+    assert.equal(config.HOST, '127.0.0.1');
+    assert.equal(config.PORT, 4321);
+  });
+  withEnvironment({ HOST: '0.0.0.0', PORT: '10000', NODE_ENV: 'development' }, () => {
+    assert.equal(loadConfig().HOST, '0.0.0.0');
+  });
+});
+
 test('Pinecone index names accept the default and trim a configured name', () => {
   withEnvironment({ PINECONE_INDEX: undefined }, () => {
     assert.equal(loadConfig().PINECONE_INDEX, 'portfolio');
