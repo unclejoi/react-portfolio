@@ -111,7 +111,7 @@ function App() {
         </section>
 
         <div className="container hero-footnote"><a href="#about">A LITTLE MORE ABOUT ME <span>↓</span></a><span>GOOD EXPERIENCES START WITH GOOD FOUNDATIONS.</span></div>
-        <div className="expertise-strip" aria-label="Core focus"><div className="container"><span>React & TypeScript</span><span className="strip-star" aria-hidden="true">✳</span><span>Design systems</span><span className="strip-star" aria-hidden="true">✳</span><span>Reusable components</span><span className="strip-star" aria-hidden="true">✳</span><span>Testable code</span></div></div>
+        <div className="expertise-strip" aria-label="Core focus"><div className="container"><span>React & TypeScript</span><span className="strip-star" aria-hidden="true">✳</span><span>Design systems</span><span className="strip-star" aria-hidden="true">✳</span><span>Reusable components</span></div></div>
 
         <section className="section container about-section" id="about" aria-labelledby="about-heading">
           <div className="section-kicker"><span className="section-number">01</span> THE INTRODUCTION</div>

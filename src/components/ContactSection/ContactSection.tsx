@@ -29,7 +29,7 @@ function ContactSection() {
   return (
     <section className="contact-section" id="contact" aria-labelledby="contact-heading">
       <div className="container">
-        <SectionKicker number="04" label="THE NEXT CONVERSATION" />
+        <SectionKicker number="05" label="THE NEXT CONVERSATION" />
         <div className="contact-grid">
           <div>
             <h2 id="contact-heading">

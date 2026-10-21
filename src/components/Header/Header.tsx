@@ -8,6 +8,7 @@ const navigation = [
   { label: 'About', id: 'about' },
   { label: 'Experience', id: 'experience' },
   { label: 'Toolkit', id: 'toolkit' },
+  { label: 'Ask my resume', id: 'resume-chat' },
   { label: 'Contact', id: 'contact' },
 ];
 

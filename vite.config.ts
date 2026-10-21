@@ -7,6 +7,7 @@ export default defineConfig({
     host: '127.0.0.1',
     port: 4173,
     strictPort: true,
+    proxy: { '/api': 'http://127.0.0.1:3001' },
     watch: { ignored: ['**/artifacts/**', '**/.sites-runtime/**'] },
   },
   preview: { host: '127.0.0.1', port: 4173, strictPort: true },

@@ -6,6 +6,7 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import HeroFootnote from '../components/HeroFootnote/HeroFootnote';
 import HeroSection from '../components/HeroSection/HeroSection';
+import ResumeChat from '../components/ResumeChat/ResumeChat';
 import ToolkitSection from '../components/ToolkitSection/ToolkitSection';
 import './App.css';
 
@@ -21,6 +22,7 @@ function App() {
         <AboutSection />
         <ExperienceSection />
         <ToolkitSection />
+        <ResumeChat />
         <ContactSection />
       </main>
       <Footer />

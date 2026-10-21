@@ -4,3 +4,7 @@ artifacts/
 *.log
 *.tsbuildinfo
 .sites-runtime/
+dist-server/
+.env
+.env.*
+!.env.example

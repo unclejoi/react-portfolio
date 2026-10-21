@@ -4,19 +4,37 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1 --port 4173",
-    "build": "tsc -b && vite build",
+    "dev": "concurrently -k -n web,api \"npm:dev:web\" \"npm:dev:server\"",
+    "dev:web": "vite --host 127.0.0.1 --port 4173",
+    "dev:server": "tsx watch server/index.ts",
+    "build": "npm run typecheck && vite build && tsc -p tsconfig.server.json",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b && tsc -p tsconfig.server.json --noEmit",
+    "rag:ingest": "tsx server/ingest.ts",
+    "start": "node dist-server/server/index.js --production",
+    "test": "tsx --test server/*.test.ts"
   },
+  "engines": { "node": ">=22.16.0" },
   "dependencies": {
+    "@google/genai": "^2.30.0",
+    "@pinecone-database/pinecone": "^9.0.0",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "pdf-parse": "^2.4.5",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.1.0",
+    "concurrently": "^10.0.6",
+    "tsx": "^4.23.15",
     "typescript": "~5.9.3",
     "vite": "^7.2.2"
   }
